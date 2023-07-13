@@ -2,7 +2,9 @@ let form = document.getElementById('addForm')
 
 form.addEventListener('submit' , addItem)
 let lists = document.getElementById('items')
+let filter = document.getElementById('filter')
 
+filter.addEventListener('keyup' , filterItems)
 lists.addEventListener('click' , handleClick)
 //      <button type="button" class="btn btn-primary btn-sm mx-2">edit</button>
 function addItem(e){
@@ -26,6 +28,7 @@ function addItem(e){
     li.appendChild(div)
     lists.appendChild(li)
     console.log(li)
+    e.target.firstElementChild.value = ""
 }
 }
 
@@ -35,4 +38,15 @@ function handleClick(e){
         let li  = e.target.parentNode.parentNode
         lists.removeChild(li)
     }
+}
+
+function filterItems(e){
+    console.log(e.target.value)
+    let items = lists.getElementsByTagName('li')
+    Array.from(items).forEach((item)=>{
+        if(item.textContent.toLowerCase().indexOf(e.target.value.toLowerCase()) != -1)
+            item.style.display = 'block'
+        else 
+            item.style.display = 'none'
+    })
 }
